@@ -91,7 +91,10 @@ tbody tr td h4 {
 tbody tr td p {
   margin: 0;
 }
-
+tbody tr td a {
+  text-decoration: none;
+  color: #000;
+}
 .customer-logo-container {
   margin: 0 0 563px 0;
 }

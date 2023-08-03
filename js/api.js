@@ -49,8 +49,10 @@ const displayProfiles = (profiles) => {
           <td>${profile?.rank + "."}</td>
             <td>${profile?.voteCount}</td>
             <td>
-              <h4>${profile?.contestantName}</h4>
-              <p>${profile?.projectTitle}</p>
+              <a href="./details.html">
+                <h4>${profile?.contestantName}</h4>
+                <p>${profile?.projectTitle}</p>
+              </a>
             </td>      
         </tr>
        <tbody>     
@@ -58,4 +60,13 @@ const displayProfiles = (profiles) => {
     `;
     tableContainer.appendChild(div);
   });
+};
+
+const getProfileData = (id) => {
+  console.log(id)
+  const url = `https://2023.projektbigfoot.de/api/v1/projects/${id}`;
+  console.log(url)
+  fetch(url)
+    .then((res) => res.json())
+    .then((result) => console.log(result));
 };
