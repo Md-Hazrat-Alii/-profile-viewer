@@ -1,72 +1,74 @@
-// const searchField = document.getElementById("search-input");
+const fetchProfilesData = async () => {
+  try {
+    const url = `https://2023.projektbigfoot.de/api/v1/projects`;
+    const response = await fetch(url);
 
-// searchField.addEventListener(
-//   "input",
-//   (handleSearch = () => {
-//     const searchText = searchField.value.trim();
+    if (!response.ok) {
+      throw new Error("Failed to fetch data from the API.");
+    }
 
-//     // If the search text is empty, display all data
-//     if (searchText === "") {
-//       profilesData();
-//     } else {
-//       //get the profiles data
-//       const url = `https://2023.projektbigfoot.de/api/v1/projects?query=${encodeURIComponent(
-//         searchText
-//       )}`;
-//       fetch(url)
-//         .then((res) => res.json())
-//         .then((data) => {
-//           const filteredData = data.filter((item) =>
-//             item.contestantName.toLowerCase().includes(searchText.toLowerCase())
-//           );
-//           displayProfiles(filteredData)
-//         });
-//     }
-//   })
-// );
-// //clear the searchfield
-// searchField.value = "";
-
-const profilesData = () => {
-  const url = `https://2023.projektbigfoot.de/api/v1/projects`;
-  fetch(url)
-    .then((res) => res.json())
-    .then((data) => displayProfiles(data));
+    return response.json();
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return []; // Return an empty array if there's an error, so displayProfiles will handle it gracefully
+  }
 };
-
-profilesData();
 
 
 const displayProfiles = (profiles) => {
   const tableContainer = document.getElementById("table-container");
 
+  // Check if tableContainer exists before proceeding
+  if (!tableContainer) {
+    return;
+  }
+  tableContainer.innerHTML = ""; // Clear the table container before displaying new data
+
   profiles.map((profile) => {
     const div = document.createElement("div");
     div.innerHTML = `
-    <table>
-      <tbody>
-        <tr>
-          <td>${profile?.rank + "."}</td>
-            <td>${profile?.voteCount}</td>
+        <table class="table1">
+        <tbody>
+          <tr>
             <td>
-              <a href="./details.html">
-                <h4>${profile?.contestantName}</h4>
-                <p>${profile?.projectTitle}</p>
-              </a>
-            </td>      
-        </tr>
-       <tbody>     
-    </table>     
+               ${profile?.rank ? profile.rank : "Rang nicht gefunden"}.
+               <span>${profile?.voteCount ? profile.voteCount : "0"}</span>
+            </td>
+            <td onclick="getProfileData('${profile?._id}')">
+              <h4>${profile?.contestantName
+        ? profile.contestantName
+        : "Projektname Nicht gefunden"
+      }</h4>
+              <p>${profile?.projectTitle
+        ? profile.projectTitle
+        : "Projekttitel Nicht gefunden"
+      }</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="table2">
+        <tbody>
+          <tr>
+            <td>${profile?.rank ? profile.rank : "Rang nicht gefunden"}.</td>
+            <td>${profile?.voteCount ? profile.voteCount : "0"}</td>
+            <td onclick="getProfileData('${profile?._id}')">
+              <h4>${profile?.contestantName
+        ? profile.contestantName
+        : "Projektname Nicht gefunden"
+      }</h4>
+              <p>${profile?.projectTitle
+        ? profile.projectTitle
+        : "Projekttitel Nicht gefunden"
+      }</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     `;
     tableContainer.appendChild(div);
   });
 };
 
-const getProfileData = (id) => {
-  console.log(id)
-  const url = `https://2023.projektbigfoot.de/api/v1/projects/${id}`;
-  console.log(url)
-  fetch(url)
-    .then((res) => res.json())
-    .then((result) => console.log(result));
-};
+// Call the fetchProfilesData function to get all profiles data and display them when the page is loaded or reloaded
+fetchProfilesData().then((data) => displayProfiles(data));
