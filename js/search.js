@@ -35,6 +35,7 @@ const handleSearch = () => {
     }
 };
 
-// Add event listener to search input field
+
 const searchInput = document.getElementById("search-input");
+// Add event listener to search input field
 searchInput.addEventListener("input", handleSearch);
