@@ -98,3 +98,121 @@ tbody tr td a {
 .customer-logo-container {
   margin: 0 0 563px 0;
 }
+
+#details-container {
+  margin: 11px 15px 0 15px;
+}
+
+.profile-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: center;
+  align-items: flex-start;
+  gap: 28px;
+}
+
+.profile-details .project-name {
+  font-size: 24px;
+  line-height: 32px;
+  color: #333f55;
+  margin: 0;
+}
+
+.profile-details .project-title {
+  font-size: 16px;
+  line-height: 30px;
+  color: #029ed4;
+  margin: 0;
+}
+.profile-details .vote-count {
+  font-size: 16px;
+  line-height: 21px;
+  color: #029ed4;
+  margin: 0 0 22px 0;
+}
+
+.profile-details button {
+  padding: 8px 61px;
+  width: 321px;
+  background: #029ed4;
+  border: 1px solid #029ed4;
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 16px;
+  line-height: 24px;
+  margin-bottom: 6px;
+  cursor: pointer;
+}
+
+.profile-details .recaptcha-text {
+  font-size: 12px;
+  line-height: 18px;
+  color: #00000080;
+}
+.profile-details .recaptcha-text span {
+  color: #029ed4;
+}
+
+.profile-details .answer-container h3 {
+  font-size: 24px;
+  line-height: 30px;
+  color: #333f55;
+  margin: 0 0 9px 0;
+}
+.profile-details .answer-container p {
+  font-size: 16px;
+  line-height: 24px;
+  color: #212529;
+  text-align: justify;
+  margin: 0 0 13px 0;
+}
+
+.profile-details .media-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin: 13px 0 18px 0;
+}
+.profile-details .media-gallery .img1 {
+  width: 196px;
+  height: 140px;
+}
+.profile-details .media-gallery .img2 {
+  width: 196px;
+  height: 92px;
+}
+.profile-details .media-gallery .img3 {
+  width: 196px;
+  height: 172px;
+}
+.profile-details .media-gallery .img4 {
+  width: 196px;
+  height: 194px;
+}
+.profile-details .media-gallery .img5 {
+  width: 196px;
+  height: 148px;
+}
+.profile-details .media-gallery .img6 {
+  width: 196px;
+  height: 128px;
+}
+.profile-details .media-gallery .img7 {
+  width: 196px;
+  height: 110px;
+}
+.profile-details .media-gallery .img8 {
+  width: 196px;
+  height: 204px;
+}
+
+.profile-details .customer-logo {
+  margin: 0 0 18.3px 0;
+}
+
+.media-gallery p {
+  color: red;
+  font-size: 24px;
+  line-height: 30px;
+  margin: 0;
+}
