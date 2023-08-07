@@ -10,30 +10,31 @@ const fetchProfilesData = async () => {
     return response.json();
   } catch (error) {
     console.error("Error fetching data:", error);
-    return []; // Return an empty array if there's an error, so displayProfiles will handle it gracefully
+    return [];
   }
 };
 
 const displayProfiles = (profiles) => {
   const tableContainer = document.getElementById("table-container");
 
-  // Check if tableContainer exists before proceeding
   if (!tableContainer) {
     return;
   }
-  tableContainer.innerHTML = ""; // Clear the table container before displaying new data
+  tableContainer.innerHTML = "";
 
   profiles.map((profile) => {
     const div = document.createElement("div");
     div.innerHTML = `
         <table class="table1">
         <tbody>
-          <tr>
+          <tr onclick="getProfileData('${profile?._id}')">
             <td>
                ${profile?.rank ? profile.rank : "Rang nicht gefunden"}.
-               <span>${profile?.voteCount ? profile.voteCount : "0"}</span>
+               <div class="vote-count">
+                 <span>${profile?.voteCount ? profile.voteCount : "0"}</span>
+               </div>
             </td>
-            <td onclick="getProfileData('${profile?._id}')">
+            <td>
               <h4>${profile?.contestantName
         ? profile.contestantName
         : "Projektname Nicht gefunden"
@@ -48,10 +49,10 @@ const displayProfiles = (profiles) => {
       </table>
       <table class="table2">
         <tbody>
-          <tr>
+          <tr onclick="getProfileData('${profile?._id}')">
             <td>${profile?.rank ? profile.rank : "Rang nicht gefunden"}.</td>
             <td>${profile?.voteCount ? profile.voteCount : "0"}</td>
-            <td onclick="getProfileData('${profile?._id}')">
+            <td>
               <h4>${profile?.contestantName
         ? profile.contestantName
         : "Projektname Nicht gefunden"
@@ -88,22 +89,20 @@ if (profileId) {
     .then((result) => showProfileDetails(result))
     .catch((error) => {
       console.error("Error fetching data:", error);
-      showProfileDetails(null); // Pass null to showProfileDetails to display an error message
+      showProfileDetails(null);
     });
 }
 
 const showProfileDetails = (result) => {
   const detailsContainer = document.getElementById("details-container");
-  detailsContainer.innerHTML = ""; // Clear the details container before displaying new data
+  detailsContainer.innerHTML = "";
 
   if (!result) {
-    // If there's an error or data is not available, display an error message
     const errorMessage = document.createElement("p");
     errorMessage.textContent = "Error: Failed to fetch data from the API.";
     detailsContainer.appendChild(errorMessage);
     return;
   }
-
   const div = document.createElement("div");
   div.innerHTML = `
    <div class="profile-details">
@@ -145,14 +144,14 @@ const showProfileDetails = (result) => {
         <div class="media-gallery">
   ${result?.projectGallery?.length > 0
       ? result.projectGallery
-        .slice(0, 8) // Display at most 8 images
+        .slice(0, 8)
         .map(
           (image, index) =>
             `<img class="img${index + 1
             }" src="${image}" alt="" onerror="handleImageError(this)">`
         )
         .join("")
-      : "<p>No images found.</p>" /* Display a message when no images are available */
+      : "<p>No images found.</p>"
     }
 </div>
 
@@ -166,13 +165,7 @@ const showProfileDetails = (result) => {
 };
 
 function handleImageError(img) {
-  // Replace the invalid image source with a default image URL
   img.src = "./assets/defaultImage.png";
-
-  // Alternatively, you can set the image to display none or show an error message
-  // img.style.display = "none";
-  // img.alt = "Image not found";
 }
 
-// Call the fetchProfilesData function to get all profiles data and display them when the page is loaded or reloaded
 fetchProfilesData().then((data) => displayProfiles(data));
